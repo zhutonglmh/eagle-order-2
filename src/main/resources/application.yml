@@ -1,0 +1,42 @@
+#端口配置
+server:
+  port: 9090
+# 数据库配置
+spring:
+    datasource:
+      name: ordersystem
+      url: jdbc:mysql://localhost:3306/ordersystem
+      username: root
+      password: zhutong960607
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      initialSize: 1
+      filters: stat
+      maxActive: 20
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+#解决关于监控401报错   敏感权限问题
+management:
+  security:
+    enabled: false
+logging:
+  level:
+    root: INFO
+  file: D:/data/app.log
+  config: classpath:logback-dev.xml
+mybatis:
+  type-aliases-package: com.example.demo.order.pojo
+  mapper-locations: classpath:mapper/*Mapper.xml
+mapper:
+  mappers: com.example.myMapper.MyMapper
+  identity: MYSQL 
+  not-empty: false

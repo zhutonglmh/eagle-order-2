@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.order.dao.FoodMapper">
+	<resultMap id="BaseResultMap" type="com.example.demo.order.pojo.Food">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="INTEGER" />
+		<result column="number" property="number" jdbcType="INTEGER" />
+		<result column="foodtype_code" property="foodTypeCode"
+			jdbcType="VARCHAR" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="CHAR" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="CHAR" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+		<result column="raw" property="raw" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="aliases" property="aliases" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, price, number, foodtype_code, create_user, create_time,
+		update_user, update_time,
+		delete_flag, raw, remark, aliases
+	</sql>
+	<!-- 根据主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from food
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 根据主键删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from food
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<!-- 添加数据 -->
+	<insert id="insert" parameterType="com.example.demo.order.pojo.Food"
+		useGeneratedKeys="true">
+		insert into food (id, name, price,
+		number, foodtype_code, create_user,
+		create_time, update_user, update_time,
+		delete_flag, raw, remark,
+		aliases)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{price,jdbcType=INTEGER},
+		#{number,jdbcType=INTEGER}, #{foodTypeCode,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=CHAR}, #{updateUser,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=CHAR},
+		#{deleteFlag,jdbcType=VARCHAR}, #{raw,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{aliases,jdbcType=VARCHAR})
+		<selectKey keyProperty='id' resultType='int' order='AFTER'>
+			select LAST_INSERT_ID() AS id;
+		</selectKey>
+	</insert>
+	<!-- 选择性添加数据 -->
+	<insert id="insertSelective" parameterType="com.example.demo.order.pojo.Food">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+		insert into food
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="number != null">
+				number,
+			</if>
+			<if test="foodTypeCode != null">
+				foodtype_code,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUser != null">
+				update_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag,
+			</if>
+			<if test="raw != null">
+				raw,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="aliases != null">
+				aliases,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=INTEGER},
+			</if>
+			<if test="number != null">
+				#{number,jdbcType=INTEGER},
+			</if>
+			<if test="foodTypeCode != null">
+				#{foodTypeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=CHAR},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=CHAR},
+			</if>
+			<if test="deleteFlag != null">
+				#{deleteFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="raw != null">
+				#{raw,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="aliases != null">
+				#{aliases,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!-- 根据主键选择性修改数据 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.example.demo.order.pojo.Food">
+		update food
+		<set>
+			<if test="name != null and '' !=name "  >
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=INTEGER},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=INTEGER},
+			</if>
+			<if test="foodTypeCode != null">
+				foodtype_code = #{foodTypeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=CHAR},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=CHAR},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="raw != null">
+				raw = #{raw,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="aliases != null">
+				aliases = #{aliases,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据主键选择性修改数据 -->
+	<update id="updateByPrimaryKey" parameterType="com.example.demo.order.pojo.Food">
+		update food
+		set name = #{name,jdbcType=VARCHAR},
+		price = #{price,jdbcType=INTEGER},
+		number = #{number,jdbcType=INTEGER},
+		foodtype_code = #{foodTypeCode,jdbcType=VARCHAR},
+		create_user = #{createUser,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=CHAR},
+		update_user = #{updateUser,jdbcType=VARCHAR},
+		update_time = #{updateTime,jdbcType=CHAR},
+		delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+		raw = #{raw,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		aliases = #{aliases,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据不同条件查询表中数据 包含了分页 -->
+	<select id="getTotalByParams" parameterType="com.example.demo.order.dto.FoodDto" resultType="java.lang.Integer">
+		select
+		  count(id)
+		from food
+		<where>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="price != null">
+				and price = #{price,jdbcType=INTEGER}
+			</if>
+			<if test="number != null">
+				<if test="compareType == 'greater'">
+					and number &gt; #{number,jdbcType=INTEGER}
+				</if>
+				<if test="compareType == 'less'">
+					and number &lt; #{number,jdbcType=INTEGER}
+				</if>
+				<if test="compareType == 'equal'">
+					and number = #{number,jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="foodTypeCode != null">
+				and foodtype_code = #{foodTypeCode,jdbcType=VARCHAR}
+			</if>
+			<if test="createUser != null">
+				and create_user = #{createUser,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime,jdbcType=CHAR}
+			</if>
+			<if test="updateUser != null">
+				and update_user = #{updateUser,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime,jdbcType=CHAR}
+			</if>
+			<if test="raw != null">
+				and raw = #{raw,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null">
+				and remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="aliases != null">
+				and aliases = #{aliases,jdbcType=VARCHAR}
+			</if>
+			and delete_flag = "N"
+		</where>
+		<if test="start != null">
+			<if test="limit != null">
+				limit #{start},#{limit}
+			</if>
+		</if>
+	</select>
+	   <!-- 根据不同条件查询表中数据 包含了分页 -->
+    <select id="getFoodListByParams" parameterType="com.example.demo.order.dto.FoodDto" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from food
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="name != null">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="price != null">
+                and price = #{price,jdbcType=INTEGER}
+            </if>
+            <if test="number != null">
+                <if test="compareType == 'greater'">
+                    and number &gt; #{number,jdbcType=INTEGER}
+                </if>
+                <if test="compareType == 'less'">
+                    and number &lt; #{number,jdbcType=INTEGER}
+                </if>
+                <if test="compareType == 'equal'">
+                    and number = #{number,jdbcType=INTEGER}
+                </if>
+            </if>
+            <if test="foodTypeCode != null">
+                and foodtype_code = #{foodTypeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=CHAR}
+            </if>
+            <if test="updateUser != null">
+                and update_user = #{updateUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=CHAR}
+            </if>
+            <if test="raw != null">
+                and raw = #{raw,jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="aliases != null">
+                and aliases = #{aliases,jdbcType=VARCHAR}
+            </if>
+                and delete_flag = "N"
+        </where>
+    </select>
+	<!-- 批量修改 -->
+	<update id="updateFoodList" parameterType="java.util.List">
+		     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		        update food
+		        <set>
+		            update_time = #{item.updateTime,jdbcType=CHAR},
+		            update_user = #{item.updateUser,jdbcType=VARCHAR},
+		            number = #{item.number,jdbcType=INTEGER}
+		        </set>
+		        where id = #{item.id}
+		    </foreach>  
+    </update>
+</mapper>

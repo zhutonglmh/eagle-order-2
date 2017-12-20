@@ -10,7 +10,7 @@
 
 	<name>eagle-order-2</name>
 	<description>Demo project for Spring Boot</description>
-
+       
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -30,18 +30,118 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+        <!-- 添加日志依赖jar包 -->
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-logging</artifactId>  
+        </dependency>
+        <!-- 整合mybatis -->
+        <dependency>
+		    <groupId>org.mybatis.spring.boot</groupId>
+		    <artifactId>mybatis-spring-boot-starter</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
+        
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- spring boot 健康信息 -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+		<!-- 添加配置durid需要依赖 -->
+		<dependency>  
+            <groupId>mysql</groupId>  
+            <artifactId>mysql-connector-java</artifactId>  
+            <scope>runtime</scope>  
+        </dependency> 
+        <!-- Spring Boot 的jpa依赖包 -->
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-data-jpa</artifactId>  
+        </dependency>   
+        <!-- 阿里系的Durid依赖包 -->
+        <dependency>  
+            <groupId>com.alibaba</groupId>  
+            <artifactId>druid</artifactId>  
+            <version>1.0.25</version>  
+        </dependency> 
+        <!-- servlet相关包 -->
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- 此包中包含了mybatis依赖 -->
+		<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+		<dependency>
+		    <groupId>org.mybatis.spring.boot</groupId>
+		    <artifactId>mybatis-spring-boot-starter</artifactId>
+		    <version>1.3.1</version>
+		</dependency>
+		<!-- 引入fastjson -->
+		<!-- 格式化对象，方便输出日志 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.41</version>
+        </dependency>
+		<!-- mapper让我很懵 -->
+		<!--mapper-->
+			<dependency>
+			    <groupId>tk.mybatis</groupId>
+			    <artifactId>mapper-spring-boot-starter</artifactId>
+			    <version>1.1.4</version>
+			</dependency>
+			<!--pagehelper-->
+			<dependency>
+			    <groupId>com.github.pagehelper</groupId>
+			    <artifactId>pagehelper-spring-boot-starter</artifactId>
+			    <version>1.2.1</version>
+			</dependency>
+			<!-- 常用功能组件包 -->
+	        <dependency>
+	            <groupId>commons-fileupload</groupId>
+	            <artifactId>commons-fileupload</artifactId>
+	            <version>1.3.1</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>commons-io</groupId>
+	            <artifactId>commons-io</artifactId>
+	            <version>2.4</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>commons-codec</groupId>
+	            <artifactId>commons-codec</artifactId>
+	        </dependency>
+	        <!-- 映入jackson-->
+	        <dependency>
+			    <groupId>org.codehaus.jackson</groupId>
+			    <artifactId>jackson-core-asl</artifactId>
+			    <version>1.9.13</version>
+			</dependency>
+            <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+			<!-- 解决map转json -->
+			<dependency>
+			    <groupId>org.codehaus.jackson</groupId>
+			    <artifactId>jackson-mapper-asl</artifactId>
+			    <version>1.9.13</version>
+			</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>    
+                <source>${java.version}</source>    
+                <target>${java.version}</target>  
+                <encoding>UTF-8</encoding>  
+            </configuration>
 			</plugin>
 		</plugins>
 	</build>

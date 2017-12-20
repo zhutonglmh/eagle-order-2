@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.order.dao.FoodTypeMapper">
+	<resultMap id="BaseResultMap" type="com.example.demo.order.pojo.FoodType">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="CHAR" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="CHAR" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, create_user, create_time, update_user,
+		update_time,
+		delete_flag, code
+	</sql>
+	<!-- 根据主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from foodtype
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 根据主键删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		foodtype
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<!-- 添加数据 -->
+	<insert id="insert" parameterType="com.example.demo.order.pojo.FoodType"
+		useGeneratedKeys="true">
+		insert into foodtype (id,
+		name, create_user,
+		create_time, update_user,
+		update_time,
+		delete_flag,
+		code)
+		values (#{id,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=CHAR},
+		#{updateUser,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=CHAR},
+		#{deleteFlag,jdbcType=VARCHAR},
+		#{code,jdbcType=VARCHAR})
+		<selectKey keyProperty='id' resultType='int' order='AFTER'>
+			select LAST_INSERT_ID() AS id;
+		</selectKey>
+	</insert>
+	<!-- 可选择性添加数据 -->
+	<insert id="insertSelective" parameterType="com.example.demo.order.pojo.FoodType"
+    useGeneratedKeys="true">
+		insert into foodtype
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUser != null">
+				update_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=CHAR},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=CHAR},
+			</if>
+			<if test="deleteFlag != null">
+				#{deleteFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<selectKey keyProperty='id' resultType='int' order='AFTER'>
+            select LAST_INSERT_ID() AS id;
+        </selectKey>
+	</insert>
+	<!-- 可选择性修改数据 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.example.demo.order.pojo.FoodType">
+		update foodtype
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=CHAR},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=CHAR},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据主键可选性修改数据 -->
+	<update id="updateByPrimaryKey" parameterType="com.example.demo.order.pojo.FoodType">
+		update foodtype
+		set name = #{name,jdbcType=VARCHAR},
+		create_user =
+		#{createUser,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=CHAR},
+		update_user =
+		#{updateUser,jdbcType=VARCHAR},
+		update_time =
+		#{updateTime,jdbcType=CHAR},
+		delete_flag =
+		#{deleteFlag,jdbcType=VARCHAR},
+		code = #{code,jdbcType=VARCHAR}
+		where id
+		= #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据不同的参数进行相应的查询 包含了分页 -->
+	<select id="getListfoodTypeByParams" parameterType="com.example.demo.order.pojo.FoodType"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from foodtype
+		<where>
+				<if test="id != null">
+					id = #{id,jdbcType=INTEGER}
+				</if>
+				<if test="name != null">
+					and name = #{name,jdbcType=VARCHAR}
+				</if>
+				<if test="createUser != null">
+					and create_user = #{createUser,jdbcType=VARCHAR}
+				</if>
+				<if test="createTime != null">
+					and create_time = #{createTime,jdbcType=CHAR}
+				</if>
+				<if test="updateUser != null">
+					and update_user = #{updateUser,jdbcType=VARCHAR}
+				</if>
+				<if test="updateTime != null">
+					and update_time = #{updateTime,jdbcType=CHAR}
+				</if>
+				<if test="deleteFlag != null">
+				    and delete_flag = #{deleteFlag,jdbcType=VARCHAR}
+				</if>
+				<if test="code != null">
+					and code = #{code,jdbcType=VARCHAR}
+				</if>
+				    and delete_flag = "N"
+		</where>
+	</select>
+</mapper>

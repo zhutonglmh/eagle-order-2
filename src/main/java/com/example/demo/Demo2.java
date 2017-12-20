@@ -20,7 +20,7 @@ public class Demo2 {
     public Map<String,Object> demo2(){
         Map<String,Object> map = new HashMap<String,Object>();
         food.setId(4);
-        map.put("朱同", "帅哥！！");
+        map.put("key","回复信息！");
         return map;
     }
 }

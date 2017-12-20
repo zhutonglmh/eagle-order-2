@@ -49,13 +49,14 @@ public class FoodController {
      *        菜品的所属类型; createUser: 菜品的创建人;start: 起始页数;limit: 前段显示条数等 注：参数可以选择其一，也可以多重条件限制查询。)
      * 
      * @return result :json字符串(返回菜品类型列表集合json字符串),faliure:未知错误;"系统异常":代表系统异常
+     * @throws Exception 
      * 
      * @update 朱同 (雏鹰订餐系统组) 2017年12月14日
      * 
      */
     @RequestMapping(value = "/getFoodList", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String getFoodList(@RequestBody @Validated FoodDto foodParams, BindingResult resultValid) {
+    public String getFoodList(@RequestBody @Validated FoodDto foodParams, BindingResult resultValid) throws Exception {
 
         String result = "failure";
         if(resultValid.getErrorCount()>0){  
@@ -65,17 +66,11 @@ public class FoodController {
             //如果验证出错,向前台返回错误信息"FAILURE"
            return ConstantConfig.RESULT_FAILURE;  
         }  
-        String ss = null;
-        ss.getBytes();
        //异常捕捉
-        /*try {
+          /*  String ss = null;
+            ss.chars();*/
             result = foodService.getFoodListByParams(foodParams);
-            String ss = null;
-            ss.getBytes();
-        } catch (Exception e) {
-            log.error("\n参数：" + foodParams.toString() + "\n错误信息：" + e.toString());
-            result = ConstantConfig.SystemException;
-        }*/
+            
         return result;
     }
 

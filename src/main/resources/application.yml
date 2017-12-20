@@ -11,6 +11,7 @@ spring:
       # 使用druid数据源
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
+      #这里飘黄是因为spring boot 没有内置druid连接池的以下配置信息，所以需要自己去写一个druid的配置类  来进行这些属性的配置
       initialSize: 1
       filters: stat
       maxActive: 20
@@ -37,6 +38,6 @@ mybatis:
   type-aliases-package: com.example.demo.order.pojo
   mapper-locations: classpath:mapper/*Mapper.xml
 mapper:
-  mappers: com.example.myMapper.MyMapper
+  #mappers: com.example.myMapper.MyMapper
   identity: MYSQL 
   not-empty: false
